@@ -6,17 +6,6 @@ http_archive(
     urls = ["https://github.com/google/go-containerregistry/releases/download/v0.16.1/go-containerregistry_Linux_x86_64.tar.gz"],
 )
 
-http_archive(
-    name = "gcloud",
-    build_file_content = """package(default_visibility = ["//visibility:public"])\nexports_files(["gcloud", "gsutil", "bq"])""",
-    patch_cmds = [
-        "ln -s google-cloud-sdk/bin/gcloud gcloud",
-        "ln -s google-cloud-sdk/bin/gsutil gsutil",
-        "ln -s google-cloud-sdk/bin/bq bq",
-    ],
-    urls = ["https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-440.0.0-linux-x86_64.tar.gz"],
-)
-
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
@@ -102,3 +91,36 @@ register_toolchains(
     "@zig_sdk//toolchain:windows_amd64",
     "@zig_sdk//toolchain:windows_arm64",
 )
+
+http_archive(
+    name="genrules_repo",
+    urls=[
+        "https://github.com/genrules/repo/archive/db55ffef95c491f29e808122d3c1b297b0ca2096.zip",
+    ],
+    strip_prefix="repo-db55ffef95c491f29e808122d3c1b297b0ca2096",
+    sha256="7c9db19e616d7646ea3ee84d2b863a203f80be11ba3d8b6ac17bca3868317e82",
+)
+
+load("@genrules_repo//:index.bzl", "repo")
+
+repo(
+    name = "genrules_steps",
+    repo = "genrules/steps",
+    commit = "befb6a3133bc20ae6320d7bbe88c545a637199fe",
+    sha = "b28e85eca74619cf9dc88472d314e794cfadf99e4079f6a4b71571c112e5d085",
+)
+
+repo(
+    name = "genrules_gcloud",
+    repo = "genrules/gcloud",
+    commit = "28892bd615f58860b3f108efc9a804c1822a9cf3",
+    sha = "e21a2097436ca0066bdf01a0cb4a80aeb135e1c44c01b775d028efd5689cf79c",
+)
+
+load("@genrules_gcloud//:deps.bzl", "gcloud_deps")
+
+gcloud_deps()
+
+load("@genrules_gcloud//:index.bzl", "gcloud_download")
+
+gcloud_download()
