@@ -8,4 +8,4 @@ actions:
         branches:
           - "*"
     bazel_commands:
-      - "run image:deploy"
+      - "run image:deploy --config=workflows"
