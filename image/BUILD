@@ -1,9 +1,11 @@
-load("@genrules_gcloud//:index.bzl", "gcloud_run_deploy", "gcloud_services_enable", "gcloud_auth_activate_refresh_token")
+load("@genrules_gcloud//:index.bzl", "gcloud_run_deploy", "gcloud_services_enable", "gcloud_auth_activate_refresh_token", "gcloud")
 load("@genrules_steps//:index.bzl", "steps")
 
 gcloud_auth_activate_refresh_token(
     name = "auth"
 )
+
+gcloud(name = "list", command = "auth list")
 
 gcloud_services_enable(
     name = "enable_cloud_run",
