@@ -9,5 +9,4 @@ actions:
           - "*"
     bazel_commands:
       - "run image:auth --config=workflows"
-      - "run image:list --config=workflows"
       - "run image:deploy --config=workflows"
