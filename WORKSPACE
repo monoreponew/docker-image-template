@@ -21,8 +21,8 @@ repo(
 repo(
     name = "genrules_gcloud",
     repo = "genrules/gcloud",
-    commit = "4b49b3fced449f8d44f6dd94b88336e8b970c912",
-    sha = "9ad8f554433fec4d6960e17f4ad6b527542cb38552ab86ed05cbda45c5141272",
+    commit = "43923b555bf124fe80390a639b7b527df98c9867",
+    sha = "1d975dcb0cfdbac63d941e734df70b9129941610fc067575eff43b4788159b0d",
 )
 
 load("@genrules_gcloud//:deps.bzl", "gcloud_deps")
