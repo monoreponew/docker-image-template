@@ -1,5 +1,5 @@
-load("@genrules_steps//:index.bzl", "steps")
-load("@genrules_gcloud//:index.bzl", "gcloud_run_deploy", "gcloud_services_enable", "gcloud_auth_activate_refresh_token")
+load("@genrules//steps:index.bzl", "steps")
+load("@genrules//gcloud:index.bzl", "gcloud_run_deploy", "gcloud_services_enable", "gcloud_auth")
 
 steps(
     name="deploy",
@@ -25,6 +25,6 @@ gcloud_run_deploy(
     allow_unauthenticated = True,
 )
 
-gcloud_auth_activate_refresh_token(
+gcloud_auth(
     name = "auth"
 )
