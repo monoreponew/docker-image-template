@@ -5,7 +5,7 @@ load("@genrules//gcloud:index.bzl", "gcloud_run_deploy", "gcloud_services_enable
 run_all(
     name="deploy",
     steps = [
-        ":auth_if_needed",
+        ":auth",
         ":enable_cloud_run",
         ":deploy_image",
     ],
@@ -25,12 +25,6 @@ gcloud_run_deploy(
     region = "us-west1",
     project = "$GCP_PROJECT",
     allow_unauthenticated = True,
-)
-
-run_if(
-    name = "auth_if_needed",
-    not_empty = "$CLOUDSDK_AUTH_REFRESH_TOKEN",
-    then = ":auth",
 )
 
 gcloud_auth(
