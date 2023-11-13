@@ -1,11 +1,10 @@
 load("@genrules//run_all:index.bzl", "run_all")
 load("@genrules//run_if:index.bzl", "run_if")
-load("@genrules//gcloud:index.bzl", "gcloud_run_deploy", "gcloud_services_enable", "gcloud_auth")
+load("@genrules//gcloud:index.bzl", "gcloud_run_deploy", "gcloud_services_enable")
 
 run_all(
     name="deploy",
     steps = [
-        ":auth",
         ":enable_cloud_run",
         ":deploy_image",
     ],
@@ -25,8 +24,4 @@ gcloud_run_deploy(
     region = "us-west1",
     project = "$GCP_PROJECT",
     allow_unauthenticated = True,
-)
-
-gcloud_auth(
-    name = "auth"
 )
